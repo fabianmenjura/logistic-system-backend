@@ -15,5 +15,9 @@ const findRouteById = async (routeId) => {
     );
     return rows[0];
 };
+const findAllRoutes = async () => {
+    const [rows] = await db.execute("SELECT * FROM routes");
+    return rows;
+};
 
-export { createRoute, findRouteById };
+export { createRoute, findRouteById, findAllRoutes };

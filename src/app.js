@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 import orderRoutes from './routes/orderRoutes.js';
 import assignmentRoutes from './routes/assignmentRoutes.js';
 import carrierRoutes from './routes/carrierRoutes.js';
+import routeRoutes from './routes/routeRoutes.js';
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api', orderRoutes);
 app.use('/api', assignmentRoutes);
 app.use('/api', carrierRoutes);
+app.use('/api', routeRoutes);
 
 app.use((err, req, res, next) => {
     res.status(500).json({ message: err.message });
