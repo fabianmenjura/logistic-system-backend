@@ -16,4 +16,23 @@ const findAssignmentByOrderId = async (orderId) => {
     return rows[0];
 };
 
-export { assignOrderToRoute, findAssignmentByOrderId };
+const getUsedCapacity = async (carrierId, routeId) => {
+    const [rows] = await db.execute(
+        `SELECT SUM(o.package_weight) AS used_capacity
+         FROM order_assignments oa
+         JOIN orders o ON oa.order_id = o.id
+         WHERE oa.carrier_id = ? AND oa.route_id = ?`,
+        [carrierId, routeId]
+    );
+    return rows[0].used_capacity || 0;
+};
+
+const isOrderAssigned = async (orderId) => {
+    const [rows] = await db.execute(
+        "SELECT * FROM order_assignments WHERE order_id = ?",
+        [orderId]
+    );
+    return rows.length > 0;
+};
+
+export { assignOrderToRoute, findAssignmentByOrderId, getUsedCapacity, isOrderAssigned };

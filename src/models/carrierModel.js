@@ -16,12 +16,19 @@ const findCarrierById = async (carrierId) => {
     return rows[0];
 };
 
-const findAvailableCarriers = async (requiredCapacity) => {
-    const [rows] = await db.execute(
-        "SELECT * FROM carriers WHERE capacity >= ? AND status = 'available'",
-        [requiredCapacity]
-    );
-    return rows;
+const findAvailableCarriers = async (requiredCapacity, originCity) => {
+  const [rows] = await db.execute(
+      "SELECT * FROM carriers WHERE capacity >= ? AND status = 'available' AND current_city = ?",
+      [requiredCapacity, originCity]
+  );
+  return rows;
 };
 
-export { createCarrier, findCarrierById, findAvailableCarriers };
+const updateCarrierStatus = async (carrierId, status) => {
+    await db.execute(
+        "UPDATE carriers SET status = ? WHERE id = ?",
+        [status, carrierId]
+    );
+};
+
+export { createCarrier, findCarrierById, findAvailableCarriers, updateCarrierStatus };
