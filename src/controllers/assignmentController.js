@@ -34,12 +34,13 @@ const assignOrderToRouteManually = async (req, res) => {
         if (
             error.message === "Orden no encontrada" ||
             error.message === "Ruta no encontrada" ||
-            error.message === "Transportista no encontrado"
+            error.message === "Transportista no encontrado o no disponible."
         ) {
             res.status(404).json({ message: error.message });
         } else if (
             error.message === "La orden ya está asignada a una ruta." ||
-            error.message === "El transportista no está en la ciudad de origen."
+            error.message === "El transportista no está en la ciudad de origen." ||
+            error.message === "La capacidad del vehículo se ha excedido."
         ) {
             res.status(400).json({ message: error.message });
         } else {

@@ -10,7 +10,7 @@ const createCarrier = async (name, phone, vehicleType, capacity) => {
 
 const findCarrierById = async (carrierId) => {
     const [rows] = await db.execute(
-        "SELECT * FROM carriers WHERE id = ?",
+        "SELECT * FROM carriers WHERE id = ? AND status = 'available'",
         [carrierId]
     );
     return rows[0];
