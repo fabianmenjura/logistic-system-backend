@@ -39,10 +39,16 @@ const createOrder = async (
 };
 
 const getOrdersByUserId = async (userId) => {
-  const [rows] = await db.execute("SELECT * FROM orders WHERE user_id = ?", [
-    userId,
+  const [rows] = await db.execute("SELECT * FROM orders WHERE user_id = ? AND deleted = 0", [
+    userId.id,
   ]);
   return rows;
 };
-
-export { createOrder, getOrdersByUserId };
+const findOrderById = async (orderId) => {
+    const [rows] = await db.execute(
+        "SELECT * FROM orders WHERE id = ? AND deleted = 0",
+        [orderId]
+    );
+    return rows[0]; // Devuelve la primera fila (la orden encontrada)
+};
+export { createOrder, getOrdersByUserId, findOrderById };

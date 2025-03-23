@@ -1,4 +1,4 @@
-import { registerOrder, getUserOrders } from '../services/orderService.js';
+import { registerOrder, getUserOrders, getOrderDetails  } from '../services/orderService.js';
 
 const createOrder = async (req, res) => {
     try {
@@ -12,7 +12,7 @@ const createOrder = async (req, res) => {
             recipientPhone
         } = req.body;
 
-        const userId = req.user.id; // Obtener el ID del usuario autenticado desde el token
+        const userId = req.user.id.id; // Obtener el ID del usuario autenticado desde el token
 
         const order = await registerOrder(
             userId,
@@ -40,5 +40,20 @@ const getOrders = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+const getOrderById = async (req, res) => {
+    const { orderId } = req.params;
 
-export { createOrder, getOrders };
+    try {
+        const order = await getOrderDetails(orderId);
+        res.json({ order });
+    } catch (error) {
+        if (error.message === "Orden no encontrada") {
+            res.status(404).json({ message: error.message });
+        } else {
+            console.error("Error al obtener la orden:", error);
+            res.status(500).json({ message: "Error al obtener la orden" });
+        }
+    }
+};
+
+export { createOrder, getOrders, getOrderById  };
