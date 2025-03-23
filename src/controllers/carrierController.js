@@ -1,4 +1,4 @@
-import { updateCarrierStatus } from "../models/carrierModel.js";
+import { updateCarrierStatus, findAllCarriers } from "../models/carrierModel.js";
 
 const dispatchCarrier = async (req, res) => {
     const { carrierId } = req.body;
@@ -12,5 +12,14 @@ const dispatchCarrier = async (req, res) => {
         res.status(500).json({ message: "Error al despachar el transportista" });
     }
 };
+const listCarriers = async (req, res) => {
+    try {
+        const carriers = await findAllCarriers();
+        res.json({ carriers });
+    } catch (error) {
+        console.error("Error al listar los transportistas:", error);
+        res.status(500).json({ message: "Error al listar los transportistas" });
+    }
+};
 
-export { dispatchCarrier };
+export { dispatchCarrier, listCarriers };

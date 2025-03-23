@@ -30,5 +30,9 @@ const updateCarrierStatus = async (carrierId, status) => {
         [status, carrierId]
     );
 };
+const findAllCarriers = async () => {
+  const [rows] = await db.execute("SELECT * FROM carriers WHERE status = ? ", ['available']);
+  return rows;
+};
 
-export { createCarrier, findCarrierById, findAvailableCarriers, updateCarrierStatus };
+export { createCarrier, findCarrierById, findAvailableCarriers, updateCarrierStatus, findAllCarriers };
