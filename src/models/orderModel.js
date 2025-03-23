@@ -40,7 +40,7 @@ const createOrder = async (
 
 const getOrdersByUserId = async (userId) => {
   const [rows] = await db.execute("SELECT * FROM orders WHERE user_id = ?", [
-    userId,
+    userId.id,
   ]);
   return rows;
 };

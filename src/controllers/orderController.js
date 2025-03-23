@@ -12,7 +12,7 @@ const createOrder = async (req, res) => {
             recipientPhone
         } = req.body;
 
-        const userId = req.user.id; // Obtener el ID del usuario autenticado desde el token
+        const userId = req.user.id.id; // Obtener el ID del usuario autenticado desde el token
 
         const order = await registerOrder(
             userId,
