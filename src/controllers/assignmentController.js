@@ -1,5 +1,6 @@
-import { assignOrder } from "../services/assignmentService.js";
+import { assignOrder, assignOrderManually  } from "../services/assignmentService.js";
 
+// función para asignar una orden a una ruta y un transportista automáticamente
 const assignOrderToRoute = async (req, res) => {
     const { orderId, routeId } = req.body;
 
@@ -22,4 +23,30 @@ const assignOrderToRoute = async (req, res) => {
     }
 };
 
-export { assignOrderToRoute };
+// función para asignar una orden a una ruta y un transportista específicos
+const assignOrderToRouteManually = async (req, res) => {
+    const { orderId, routeId, carrierId } = req.body;
+
+    try {
+        const result = await assignOrderManually(orderId, routeId, carrierId);
+        res.json({ message: "Orden asignada manualmente exitosamente", data: result });
+    } catch (error) {
+        if (
+            error.message === "Orden no encontrada" ||
+            error.message === "Ruta no encontrada" ||
+            error.message === "Transportista no encontrado"
+        ) {
+            res.status(404).json({ message: error.message });
+        } else if (
+            error.message === "La orden ya está asignada a una ruta." ||
+            error.message === "El transportista no está en la ciudad de origen."
+        ) {
+            res.status(400).json({ message: error.message });
+        } else {
+            console.error("Error al asignar la orden manualmente:", error);
+            res.status(500).json({ message: "Error al asignar la orden manualmente" });
+        }
+    }
+};
+
+export { assignOrderToRoute, assignOrderToRouteManually  };
