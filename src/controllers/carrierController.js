@@ -1,7 +1,7 @@
 import { 
     updateCarrierStatus, 
     findAllCarriers, 
-    findCarrierByIdDetail, 
+    findCarrierById, 
     findActiveOrdersByCarrierId 
 } from "../models/carrierModel.js";
 
@@ -30,7 +30,7 @@ const getCarrierDetails = async (req, res) => {
     const { carrierId } = req.params;
 
     try {
-        const carrier = await findCarrierByIdDetail(carrierId);
+        const carrier = await findCarrierById(carrierId);
         if (!carrier) {
             return res.status(404).json({ message: "Transportista no encontrado" });
         }
