@@ -1,6 +1,6 @@
 import { findOrderById } from "../models/orderModel.js";
 import { findRouteById } from "../models/routeModel.js";
-import { findAvailableCarriers, updateCarrierStatus, findCarrierById } from "../models/carrierModel.js";
+import { findAvailableCarriers, updateCarrierStatus, findCarrierByIdAvailable } from "../models/carrierModel.js";
 import { assignOrderToRoute, getUsedCapacity, isOrderAssigned } from "../models/orderAssignmentModel.js";
 import db from "../config/db.js";
 
@@ -48,7 +48,7 @@ const assignOrder = async (orderId, routeId) => {
 
         // Si la capacidad está completa, marcar el transportista como "ocupado"
         if (totalCapacity >= suitableCarrier.capacity) {
-            await updateCarrierStatus(suitableCarrier.id, 'busy');
+            await updateCarrierStatus(suitableCarrier.id, 'en ruta');
         }
 
         // Actualizar el estado de la orden a "en transporte"
@@ -85,7 +85,7 @@ const assignOrderManually = async (orderId, routeId, carrierId) => {
         }
 
         // Verificar que el transportista existe
-        const carrier = await findCarrierById(carrierId);
+        const carrier = await findCarrierByIdAvailable(carrierId);
         if (!carrier) {
             throw new Error("Transportista no encontrado o no disponible.");
         }
