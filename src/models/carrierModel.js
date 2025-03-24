@@ -46,7 +46,7 @@ const findAllCarriers = async () => {
                 SELECT COUNT(*) 
                 FROM orders o
                 JOIN order_assignments oa ON o.id = oa.order_id
-                WHERE oa.carrier_id = carriers.id AND o.status = 'En tránsito'
+                WHERE oa.carrier_id = carriers.id AND o.status = 'En tránsito' AND o.deleted = 0
             ) AS active_orders
         FROM carriers
         WHERE carriers.deleted = 0
@@ -58,7 +58,7 @@ const findActiveOrdersByCarrierId = async (carrierId) => {
       `SELECT o.* 
        FROM orders o
        JOIN order_assignments oa ON o.id = oa.order_id
-       WHERE oa.carrier_id = ? AND o.status = 'En tránsito'`,
+       WHERE oa.carrier_id = ? AND o.deleted = 0`,
       [carrierId]
   );
   return rows;
