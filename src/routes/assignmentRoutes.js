@@ -9,6 +9,7 @@ router.use(verifyToken);
 
 // Asignar una orden a una ruta
 router.post("/assign", assignOrderToRoute);
-// Asignar una orden a una ruta manualmente
+
+// Asignar orden a ruta y transportista específicos
 router.post("/assign-manually", assignOrderToRouteManually);
 export default router;
