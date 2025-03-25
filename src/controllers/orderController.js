@@ -1,4 +1,4 @@
-import { registerOrder, getUserOrders, getOrderDetails  } from '../services/orderService.js';
+import { registerOrder, getUserOrders, getOrderDetails, getOrderTracking  } from '../services/orderService.js';
 
 const createOrder = async (req, res) => {
     try {
@@ -55,5 +55,20 @@ const getOrderById = async (req, res) => {
         }
     }
 };
+const getOrderByTracking = async (req, res) => {
+    const { trackingCode } = req.params;
 
-export { createOrder, getOrders, getOrderById  };
+    try {
+        const order = await getOrderTracking(trackingCode);
+        res.json({ order });
+    } catch (error) {
+        if (error.message === "Orden no encontrada") {
+            res.status(404).json({ message: error.message });
+        } else {
+            console.error("Error al obtener la orden:", error);
+            res.status(500).json({ message: "Error al obtener la orden" });
+        }
+    }
+};
+
+export { createOrder, getOrders, getOrderById, getOrderByTracking  };
