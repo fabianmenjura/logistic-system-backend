@@ -42,8 +42,11 @@ backend-reto-coordinadora/
 git clone https://github.com/tuusuario/backend-reto-coordinadora.git
 cd backend-reto-coordinadora
 ```
-### Base de datos
-Abrir el archivo logistic-system.sql e importar la base de datos o copiar y pegar el contenido en el motor de base de datos y ejecutar
+###  Importar base de datos
+Asegúrate de tener MySQL en funcionamiento y ejecuta:
+```sh
+mysql -u root -p logistic-system < logistic-system.sql
+```
 
 ### 3️⃣ Instalar dependencias
 ```sh
