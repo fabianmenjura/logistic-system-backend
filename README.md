@@ -40,6 +40,7 @@ backend-reto-coordinadora/
 ### 2️⃣ Clonar el repositorio
 ```sh
 git clone https://github.com/fabianmenjura/logistic-system-backend.git
+git clone https://github.com/fabianmenjura/logistic-system-backend.git
 cd backend-reto-coordinadora
 ```
 ###  Importar base de datos
