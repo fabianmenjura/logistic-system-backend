@@ -51,4 +51,11 @@ const findOrderById = async (orderId) => {
     );
     return rows[0]; // Devuelve la primera fila (la orden encontrada)
 };
-export { createOrder, getOrdersByUserId, findOrderById };
+const findOrderByTracking = async (trackingCode) => {
+    const [rows] = await db.execute(
+        "SELECT * from orders WHERE tracking_code = ? AND deleted = 0",
+        [trackingCode]
+    );
+    return rows[0];
+};
+export { createOrder, getOrdersByUserId, findOrderById, findOrderByTracking };
