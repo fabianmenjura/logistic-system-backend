@@ -107,7 +107,7 @@ const assignOrderManually = async (orderId, routeId, carrierId) => {
         // Asignar la orden a la ruta y al transportista
         const assignmentId = await assignOrderToRoute(orderId, routeId, carrierId);
 
-        // Actualizar el estado de la orden a "en transporte"
+        // Actualizar el estado de la orden a "En tránsito"
         await db.execute(
             "UPDATE orders SET status = 'En tránsito' WHERE id = ?",
             [orderId]
