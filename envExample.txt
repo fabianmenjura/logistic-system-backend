@@ -1,8 +1,0 @@
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=
-DB_NAME=logistic-system
-REDIS_URL=redis://localhost:6379
-JWT_SECRET=G7$eK9@qL2*P5&vR8!zX
-PORT=3000
-GOOGLE_MAPS_API_KEY=
