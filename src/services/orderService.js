@@ -1,4 +1,4 @@
-import { createOrder, getOrdersByUserId } from '../models/orderModel.js';
+import { createOrder, getOrdersByUserId, findOrderById, findOrderByTracking, findOrderByStatusHistory } from '../models/orderModel.js';
 import validateAddress from '../utils/validateAddress.js';
 import generateTrackingCode from '../utils/generateTrackingCode.js';
 
@@ -47,5 +47,38 @@ const getUserOrders = async (userId) => {
     const orders = await getOrdersByUserId(userId);
     return orders;
 };
+const getOrderDetails = async (orderId) => {
+    try {
+        const order = await findOrderById(orderId);
+        if (!order) {
+            throw new Error("Orden no encontrada");
+        }
+        return order;
+    } catch (error) {
+        throw error;
+    }
+};
+const getOrderTracking = async (trackingCode) => {
+    try {
+        const order = await findOrderByTracking(trackingCode);
+        if (!order) {
+            throw new Error("Orden no encontrada");
+        }
+        return order;
+    } catch (error) {
+        throw error;
+    }
+};
+const getOrderStatusHistory = async (orderId) => {
+    try {
+        const order = await findOrderByStatusHistory(orderId);
+        if (!order) {
+            throw new Error("Orden no encontrada");
+        }
+        return order;
+    } catch (error) {
+        throw error;
+    }
+};
 
-export { registerOrder, getUserOrders };
+export { registerOrder, getUserOrders, getOrderDetails, getOrderTracking, getOrderStatusHistory  };
